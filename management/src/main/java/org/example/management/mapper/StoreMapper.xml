@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.management.mapper.StoreMapper">
+    <!-- 条件分页查询 -->
+    <select id="list" resultType="org.example.management.pojo.Store">
+        select id,name,kind,create_time from store
+        <where>
+            <if test="name != null and name != ''">
+                name like concat('%',#{name},'%')
+            </if>
+            <if test="kind != null">
+                and kind = #{kind}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+    <!--更新仓库信息-->
+    <update id="update">
+        update store
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="kind != null">
+                kind = #{kind},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <!-- 批量删除仓库-->
+    <select id="delete">
+        delete from store where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+</mapper>
