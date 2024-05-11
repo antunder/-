@@ -5,7 +5,7 @@
 <mapper namespace="org.example.management.mapper.UserMapper">
     <!-- 条件分页查询 -->
     <select id="list" resultType="org.example.management.pojo.User">
-        select id,name,address,kind,gender,create_time from user
+        select id,username,password,name,kind,gender,create_time from user
         <where>
             <if test="name != null and name != ''">
                 name like concat('%',#{name},'%')

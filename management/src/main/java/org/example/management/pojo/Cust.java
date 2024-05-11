@@ -14,5 +14,6 @@ public class Cust {
     private String address;
     private Short kind;
     private Short gender;
+    private String phone;
     private LocalDateTime createTime;
 }

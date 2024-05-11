@@ -5,7 +5,7 @@
 <mapper namespace="org.example.management.mapper.CustMapper">
     <!-- 条件分页查询 -->
     <select id="list" resultType="org.example.management.pojo.Cust">
-        select id,name,address,kind,gender,create_time from cust
+        select id,name,address,kind,gender,phone,create_time from cust
         <where>
             <if test="name != null and name != ''">
                 name like concat('%',#{name},'%')
@@ -34,6 +34,9 @@
             </if>
             <if test="gender != null">
                 and gender = #{gender},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
             </if>
         </set>
         where id = #{id}
