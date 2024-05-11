@@ -13,7 +13,7 @@ public interface UserMapper {
     public List<User> list(String name, Short kind,Short gender);
     //新增用户
     @Insert("insert into user ( username,name, kind, gender,create_time) " +
-            "values ( #{name}, #{kind},#{createTime});")
+            "values ( #{username},#{name}, #{kind},#{gender},#{createTime});")
     void insert(User user);
     //修改用户信息
     void update(User user);

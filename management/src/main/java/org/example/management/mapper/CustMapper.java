@@ -13,7 +13,7 @@ public interface CustMapper {
     public List<Cust> list(String name, Short kind,Short gender);
     //新增客户
     @Insert("insert into cust ( name,address, kind, gender,phone,create_time) " +
-            "values ( #{name},#{address}, #{kind},#{gender},#{createTime});")
+            "values ( #{name},#{address}, #{kind},#{gender},#{phone},#{createTime});")
     void insert(Cust cust);
     //修改客户信息
     void update(Cust cust);

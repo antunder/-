@@ -33,7 +33,7 @@
                 kind = #{kind},
             </if>
             <if test="gender != null">
-                and gender = #{gender},
+                gender = #{gender},
             </if>
             <if test="phone != null and phone != ''">
                 phone = #{phone},
