@@ -25,6 +25,12 @@ public class GoodController {
         PageBean pageBean = goodService.page(page, pageSize, name, state,storeId,decri);
         return Result.success(pageBean);
     }
+    @GetMapping("/list")
+    public Result list(String name, Short state,Integer storeId,String decri){
+        log.info("分页查询，参数：{},{},{},{}",name,state,storeId,decri);
+        List<Good> goodList = goodService.list(name, state,storeId,decri);
+        return Result.success(goodList);
+    }
     @PostMapping
     public Result save(@RequestBody Good good){
         //记录日志

@@ -28,6 +28,11 @@ public class GoodServiceImpl implements GoodService {
     }
 
     @Override
+    public List<Good> list(String name, Short state, Integer storeId, String decri) {
+        return goodMapper.list(name, state, storeId, decri);
+    }
+
+    @Override
     public void save(Good good) {
         good.setCreateTime(LocalDateTime.now());
         goodMapper.insert(good);

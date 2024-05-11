@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface GoodMapper {
     //货品信息查询
-    public List<Good> list(String name, Short state,Integer storeId,String decri);
+    List<Good> list(String name, Short state,Integer storeId,String decri);
     //新增货品
     @Insert("insert into good ( name, state, decri,store_id,jh_pri,pf_pri,ls_pri,storage,create_time) " +
             "values ( #{name}, #{state},#{decri},#{storeId},#{jhPri},#{pfPri},#{lsPri},#{storage},#{createTime});")

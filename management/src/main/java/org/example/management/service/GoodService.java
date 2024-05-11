@@ -43,4 +43,13 @@ public interface GoodService {
      * @param ids id集合
      */
     void delete(List<Integer> ids);
+    /**
+     * 条件分页查询
+     * @param name     货品名称
+     * @param state      货品状态
+     * @param storeId  仓库id
+     * @param decri    货品规格
+     * @return
+     */
+    List<Good> list(String name, Short state,Integer storeId,String decri);
 }

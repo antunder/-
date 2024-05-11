@@ -3,5 +3,52 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.example.management.mapper.SlipMapper">
-
+    <!-- 查询 -->
+    <select id="list" resultType="org.example.management.pojo.Slip">
+        select * from slip
+        <where>
+            <if test="kind != null">
+                kind = #{kind}
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
+            <if test="storeId != null">
+                and store_id = #{storeId}
+            </if>
+            <if test="custId != null">
+                and cust_id = #{custId}
+            </if>
+            <if test="begin != null and end != null">
+                and create_time between #{begin} and #{end}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+    <!--更新开单信息-->
+    <update id="update">
+        update slip
+        <set>
+            <if test="kind != null">
+                kind = #{kind},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+            <if test="storeId != null">
+                store_id = #{storeId},
+            </if>
+            <if test="custId != null">
+                cust_id = #{custId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <!-- 批量删除开单-->
+    <select id="delete">
+        delete from slip where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
 </mapper>
