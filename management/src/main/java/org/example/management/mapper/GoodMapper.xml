@@ -60,4 +60,9 @@
             #{id}
         </foreach>
     </select>
+    <!-- 根据仓库id获取货品信息   -->
+    <select id="findByStoreId" resultType="org.example.management.pojo.Good">
+        select * from good where store_id = #{storeId}
+        order by create_time desc
+    </select>
 </mapper>

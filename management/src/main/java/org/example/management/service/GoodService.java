@@ -52,4 +52,10 @@ public interface GoodService {
      * @return
      */
     List<Good> list(String name, Short state,Integer storeId,String decri);
+    /**
+     * 根据仓库ID查询货品
+     * @param storeId
+     * @return
+     */
+    List<Good> getByStoreId(Integer storeId);
 }

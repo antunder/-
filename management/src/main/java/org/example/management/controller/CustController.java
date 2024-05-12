@@ -16,12 +16,22 @@ import java.util.List;
 public class CustController {
     @Autowired
     private CustService custService;
+    //针对客户的接口
     @GetMapping
-    public Result page(@RequestParam(defaultValue = "1") Integer page,
+    public Result pageCust(@RequestParam(defaultValue = "1") Integer page,
                        @RequestParam(defaultValue = "10") Integer pageSize,
                        String name, Short kind,Short gender){
         log.info("分页查询，参数：{}，{},{},{},{}",page,pageSize,name,kind,gender);
-        PageBean pageBean = custService.page(page, pageSize, name, kind,gender);
+        PageBean pageBean = custService.pageCust(page, pageSize, name, kind,gender);
+        return Result.success(pageBean);
+    }
+    //针对供货商的接口
+    @GetMapping("/sups")
+    public Result pageSup(@RequestParam(defaultValue = "1") Integer page,
+                           @RequestParam(defaultValue = "10") Integer pageSize,
+                           String name, Short gender){
+        log.info("分页查询，参数：{}，{},{},{},{}",page,pageSize,name,gender);
+        PageBean pageBean = custService.pageSup(page, pageSize, name,gender);
         return Result.success(pageBean);
     }
     @PostMapping

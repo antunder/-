@@ -22,13 +22,13 @@ public class SlipDetailServiceImpl implements SlipDetailService {
     }
 
     @Override
-    public void save(SlipDetail slipDetail) {
-        slipDetailMapper.insert(slipDetail);
+    public void save(List<SlipDetail> slipDetails) {
+        slipDetailMapper.insert(slipDetails);
     }
 
     @Override
-    public void update(SlipDetail slipDetail) {
-        slipDetailMapper.update(slipDetail);
+    public void update(List<SlipDetail> slipDetails) {
+        slipDetailMapper.update(slipDetails);
     }
 
     @Override

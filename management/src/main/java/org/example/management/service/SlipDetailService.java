@@ -1,6 +1,7 @@
 package org.example.management.service;
 
 import org.example.management.pojo.PageBean;
+import org.example.management.pojo.Slip;
 import org.example.management.pojo.SlipDetail;
 
 import java.util.List;
@@ -15,14 +16,14 @@ public interface SlipDetailService {
     List<SlipDetail> list(Integer slipId, Integer goodId);
     /**
      * 保存开单细节信息
-     * @param slipDetail
+     * @param slipDetails
      */
-    void save(SlipDetail slipDetail);
+    void save(List<SlipDetail> slipDetails);
     /**
      * 更新开单细节
-     * @param slipDetail
+     * @param slipDetails
      */
-    void update(SlipDetail slipDetail);
+    void update(List<SlipDetail> slipDetails);
     /**
      * 根据ID查询开单细节
      * @param id

@@ -10,7 +10,9 @@ import java.util.List;
 @Mapper
 public interface CustMapper {
     //客户信息查询
-    public List<Cust> list(String name, Short kind,Short gender);
+    List<Cust> listCust(String name, Short kind,Short gender);
+    //供货商信息查询
+    List<Cust> listSup(String name,Short gender);
     //新增客户
     @Insert("insert into cust ( name,address, kind, gender,phone,create_time) " +
             "values ( #{name},#{address}, #{kind},#{gender},#{phone},#{createTime});")

@@ -12,4 +12,5 @@ public class SlipDetail {
     private Integer slipId;
     private Integer goodId;
     private Integer number;
+    private String notes;
 }

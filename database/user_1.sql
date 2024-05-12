@@ -11,4 +11,4 @@ create table user
 )
     comment '用户表';
 
-INSERT INTO user (id, username, password, name, kind, gender, create_time) VALUES (1, 'lisi', '123456', '李四', 1, 1, '2024-05-10 18:51:05');
+INSERT INTO db02.user (id, username, password, name, kind, gender, create_time) VALUES (1, 'lisi', '123456', '李四', 1, 1, '2024-05-10 18:51:05');

@@ -15,7 +15,16 @@ public interface CustService {
      * @param gender    客户性别
      * @return
      */
-    PageBean page(Integer page, Integer pageSize, String name, Short kind,Short gender);
+    PageBean pageCust(Integer page, Integer pageSize, String name, Short kind,Short gender);
+    /**
+     * 条件分页查询供货商
+     * @param page     页码
+     * @param pageSize 每页展示记录数
+     * @param name     客户名称
+     * @param gender    客户性别
+     * @return
+     */
+    PageBean pageSup(Integer page, Integer pageSize, String name,Short gender);
     /**
      * 保存客户信息
      * @param cust

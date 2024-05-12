@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.management.mapper.SlipMapper;
 import org.example.management.pojo.Slip;
 import org.example.management.pojo.PageBean;
-import org.example.management.pojo.Slip;
 import org.example.management.service.SlipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,9 +34,10 @@ public class SlipServiceImpl implements SlipService {
     }
 
     @Override
-    public void save(Slip slip) {
+    public Integer save(Slip slip) {
         slip.setCreateTime(LocalDate.now());
-        slipMapper.update(slip);
+        slipMapper.insert(slip);
+        return slip.getId();
     }
 
     @Override

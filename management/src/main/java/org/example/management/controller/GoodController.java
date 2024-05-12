@@ -27,7 +27,7 @@ public class GoodController {
     }
     @GetMapping("/list")
     public Result list(String name, Short state,Integer storeId,String decri){
-        log.info("分页查询，参数：{},{},{},{}",name,state,storeId,decri);
+        log.info("查询，参数：{},{},{},{}",name,state,storeId,decri);
         List<Good> goodList = goodService.list(name, state,storeId,decri);
         return Result.success(goodList);
     }
@@ -59,6 +59,12 @@ public class GoodController {
     @GetMapping("/all")
     public Result getAll(){
         List<Good> goodList = goodService.getAll();
+        return Result.success(goodList);
+    }
+    //根据仓库id查询
+    @GetMapping("/stores/{storeId}")
+    public Result getByStoreId(@PathVariable Integer storeId){
+        List<Good> goodList =  goodService.getByStoreId(storeId);
         return Result.success(goodList);
     }
 }

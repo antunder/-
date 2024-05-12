@@ -56,8 +56,8 @@ public class SlipController {
         //记录日志
         log.info("新增开单，slip:{}",slip);
         //调用业务层功能
-        slipService.save(slip);
-        return Result.success();
+        Integer id = slipService.save(slip);
+        return Result.success(id);
     }
 
     //根据id查询

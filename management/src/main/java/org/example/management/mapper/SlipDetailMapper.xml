@@ -5,7 +5,7 @@
 <mapper namespace="org.example.management.mapper.SlipDetailMapper">
     <!-- 查询 -->
     <select id="list" resultType="org.example.management.pojo.SlipDetail">
-        select id, slip_id, good_id, number from slip_detail
+        select * from slip_detail
         <where>
             <if test="slipId != null">
                 slip_id = #{slipId}
@@ -16,18 +16,31 @@
         </where>
         order by id desc
     </select>
+    <!--批量插入开单细节    -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="org.example.management.pojo.SlipDetail">
+        insert into slip_detail( slip_id, good_id, number,notes)
+        values
+        <foreach collection="slipDetails" item="item" separator=",">
+            (#{item.slipId},#{item.goodId},#{item.number},#{item.notes})
+        </foreach>
+    </insert>
     <!--更新开单细节信息-->
-    <update id="update">
-        update slip_detail
-        <set>
-            <if test="goodId != null">
-                good_id = #{goodId},
-            </if>
-            <if test="number != null">
-                number = #{number},
-            </if>
-        </set>
-        where id = #{id}
+    <update id="update"  parameterType="org.example.management.pojo.SlipDetail">
+        <foreach collection="slipDetails" item="sd" separator=";" >
+            update slip_detail
+            <set>
+                <if test="sd.goodId != null">
+                    good_id = #{sd.goodId},
+                </if>
+                <if test="sd.number != null">
+                    number = #{sd.number},
+                </if>
+                <if test="sd.notes != null and sd.notes!= '' ">
+                    notes = #{sd.notes},
+                </if>
+            </set>
+            where id = #{sd.id}
+        </foreach>
     </update>
     <!-- 批量删除开单细节-->
     <select id="delete">

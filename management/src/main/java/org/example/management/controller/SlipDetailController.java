@@ -1,7 +1,6 @@
 package org.example.management.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.management.pojo.PageBean;
 import org.example.management.pojo.Result;
 import org.example.management.pojo.SlipDetail;
 import org.example.management.service.SlipDetailService;
@@ -24,16 +23,16 @@ public class SlipDetailController {
         return Result.success(slipDetailList);
     }
     @PostMapping
-    public Result save(@RequestBody SlipDetail slipDetail){
+    public Result save(@RequestBody List<SlipDetail> slipDetails){
         //记录日志
-        log.info("新增开单细节，slipDetail:{}",slipDetail);
+        log.info("新增开单细节，slipDetail:{}",slipDetails);
         //调用业务层功能
-        slipDetailService.save(slipDetail);
+        slipDetailService.save(slipDetails);
         return Result.success();
     }
     @PutMapping
-    public Result update(@RequestBody SlipDetail slipDetail){
-        slipDetailService.update(slipDetail);
+    public Result update(@RequestBody List<SlipDetail> slipDetails){
+        slipDetailService.update(slipDetails);
         return Result.success();
     }
     //批量删除

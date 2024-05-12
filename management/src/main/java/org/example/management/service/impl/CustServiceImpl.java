@@ -19,9 +19,18 @@ public class CustServiceImpl implements CustService {
     @Autowired
     private CustMapper custMapper;
     @Override
-    public PageBean page(Integer page, Integer pageSize, String name, Short kind,Short gender) {
+    public PageBean pageCust(Integer page, Integer pageSize, String name, Short kind,Short gender) {
         PageHelper.startPage(page,pageSize);
-        List<Cust> custList = custMapper.list(name, kind,gender);
+        List<Cust> custList = custMapper.listCust(name, kind,gender);
+        Page<Cust> p = (Page<Cust>) custList;
+        PageBean pageBean = new PageBean(p.getTotal(),p.getResult());
+        return pageBean;
+    }
+
+    @Override
+    public PageBean pageSup(Integer page, Integer pageSize, String name, Short gender) {
+        PageHelper.startPage(page,pageSize);
+        List<Cust> custList = custMapper.listSup(name,gender);
         Page<Cust> p = (Page<Cust>) custList;
         PageBean pageBean = new PageBean(p.getTotal(),p.getResult());
         return pageBean;

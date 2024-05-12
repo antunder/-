@@ -13,8 +13,6 @@ public interface SlipMapper {
     //查询
     List<Slip> list(Short kind, Short state, Integer storeId,Integer custId,LocalDate begin, LocalDate end);
     //新增开单
-    @Insert("insert into slip (kind, state, store_id,cust_id,create_time) " +
-            "values ( #{kind}, #{state},#{storeId},#{custId},#{createTime});")
     void insert(Slip slip);
     //修改开单信息
     void update(Slip slip);

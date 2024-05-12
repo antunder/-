@@ -25,6 +25,11 @@
         </where>
         order by create_time desc
     </select>
+    <!-- 新增开单   -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="org.example.management.pojo.Slip">
+        insert into slip (kind, state, store_id,cust_id,create_time)
+        values ( #{kind}, #{state},#{storeId},#{custId},#{createTime})
+    </insert>
     <!--更新开单信息-->
     <update id="update">
         update slip

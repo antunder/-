@@ -22,9 +22,11 @@ public interface SlipService {
     PageBean page(Integer page, Integer pageSize, Short kind, Short state, Integer storeId, Integer custId, LocalDate begin,LocalDate end);
     /**
      * 保存开单信息
+     *
      * @param slip
+     * @return
      */
-    void save(Slip slip);
+    Integer save(Slip slip);
     /**
      * 更新开单信息
      * @param slip

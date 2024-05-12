@@ -27,4 +27,6 @@ public interface GoodMapper {
     List<Good> getAll();
     //批量删除
     void delete(List<Integer> ids);
+    //根据仓库id查询货品信息
+    List<Good> findByStoreId(Integer storeId);
 }
