@@ -8,6 +8,7 @@ import org.example.management.service.SlipDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -27,8 +28,28 @@ public class SlipDetailServiceImpl implements SlipDetailService {
     }
 
     @Override
-    public void update(List<SlipDetail> slipDetails) {
-        slipDetailMapper.update(slipDetails);
+    public void update(Integer slipId,List<SlipDetail> slipDetails) {
+        List<SlipDetail> ori = slipDetailMapper.list(slipId,null);
+        List<SlipDetail> addList  = new ArrayList<>();
+        List<SlipDetail> updateList = new ArrayList<>();
+        List<SlipDetail> deleteList = new ArrayList<>(ori);
+        for(SlipDetail sp : slipDetails){
+            if(sp.getId()==null){
+                addList.add(sp);
+            }else{
+                updateList.add(sp);
+            }
+        }
+        slipDetailMapper.insert(addList);
+        slipDetailMapper.update(updateList);
+        List<Integer> deleteIds = new ArrayList<>();
+        for(SlipDetail sp : deleteList){
+            deleteIds.add(sp.getId());
+        }
+        for(SlipDetail sp :updateList){
+            deleteIds.remove(sp.getId());
+        }
+        slipDetailMapper.delete(deleteIds);
     }
 
     @Override

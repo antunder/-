@@ -21,9 +21,10 @@ public interface SlipDetailService {
     void save(List<SlipDetail> slipDetails);
     /**
      * 更新开单细节
+     * @param slipId
      * @param slipDetails
      */
-    void update(List<SlipDetail> slipDetails);
+    void update(Integer slipId,List<SlipDetail> slipDetails);
     /**
      * 根据ID查询开单细节
      * @param id

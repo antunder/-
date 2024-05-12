@@ -30,9 +30,9 @@ public class SlipDetailController {
         slipDetailService.save(slipDetails);
         return Result.success();
     }
-    @PutMapping
-    public Result update(@RequestBody List<SlipDetail> slipDetails){
-        slipDetailService.update(slipDetails);
+    @PutMapping("/{slipId}")
+    public Result update(@PathVariable Integer slipId, @RequestBody List<SlipDetail> slipDetails){
+        slipDetailService.update(slipId,slipDetails);
         return Result.success();
     }
     //批量删除
