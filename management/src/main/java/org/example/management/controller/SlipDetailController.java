@@ -47,5 +47,11 @@ public class SlipDetailController {
         SlipDetail slipDetail =  slipDetailService.getById(id);
         return Result.success(slipDetail);
     }
+    //整单退货
+    @PutMapping("/reject/{slipId}")
+    public Result reject(@PathVariable Integer slipId){
+        slipDetailService.reject(slipId);
+        return Result.success();
+    }
 
 }

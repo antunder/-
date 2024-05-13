@@ -1,8 +1,12 @@
 package org.example.management.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.management.mapper.GoodMapper;
 import org.example.management.mapper.SlipDetailMapper;
+import org.example.management.mapper.SlipMapper;
+import org.example.management.pojo.Good;
 import org.example.management.pojo.PageBean;
+import org.example.management.pojo.Slip;
 import org.example.management.pojo.SlipDetail;
 import org.example.management.service.SlipDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +20,10 @@ import java.util.List;
 public class SlipDetailServiceImpl implements SlipDetailService {
     @Autowired
     private SlipDetailMapper slipDetailMapper;
-
+    @Autowired
+    private SlipMapper slipMapper;
+    @Autowired
+    private GoodMapper goodMapper;
     @Override
     public List<SlipDetail> list(Integer slipId, Integer goodId) {
         return slipDetailMapper.list(slipId,goodId);
@@ -81,5 +88,23 @@ public class SlipDetailServiceImpl implements SlipDetailService {
     @Override
     public SlipDetail getById(Integer id) {
         return slipDetailMapper.findById(id);
+    }
+
+    @Override
+    public void reject(Integer slipId) {
+        List<SlipDetail> slipDetails = slipDetailMapper.list(slipId,null);
+        Slip slip = slipMapper.findById(slipId);
+        Short state = 6;
+        slip.setState(state);
+        slipMapper.update(slip);//更改slip状态
+        Integer ori,now;
+        for(SlipDetail sp : slipDetails){
+            Integer goodId = sp.getGoodId();
+            Good good = goodMapper.findById(goodId);
+            ori = good.getStorage();
+            now = ori+sp.getNumber();
+            good.setStorage(now);
+            goodMapper.update(good);
+        }
     }
 }
