@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.management.mapper.BillDetailMapper">
+    <!-- 查询 -->
+    <select id="list" resultType="org.example.management.pojo.BillDetail">
+        select * from bill_detail
+        <where>
+            <if test="slipId != null">
+                slip_id = #{slipId}
+            </if>
+        </where>
+        order by id desc
+    </select>
+    <!--批量插入开单细节    -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="org.example.management.pojo.BillDetail">
+        insert into bill_detail( slip_id,name,decri,store_id,jh_pri,number,notes)
+        values
+        <foreach collection="billDetails" item="item" separator=",">
+            (#{item.slipId},#{item.name},#{item.decri},#{item.storeId},#{item.jhPri},#{item.number},#{item.notes})
+        </foreach>
+    </insert>
+    <!--更新开单细节信息-->
+    <update id="update"  parameterType="org.example.management.pojo.BillDetail">
+        <foreach collection="billDetails" item="sd" separator=";" >
+            update bill_detail
+            <set>
+                <if test="sd.name != null and sd.name != ''">
+                    name = #{sd.name},
+                </if>
+                <if test="sd.decri != null and sd.name != ''">
+                    decri = #{sd.decri},
+                </if>
+                <if test="sd.storeId != null">
+                    store_id = #{sd.storeId},
+                </if>
+                <if test="sd.jhPri != null ">
+                    jh_pri = #{sd.jhPri},
+                </if>
+                <if test="sd.number != null">
+                    number = #{sd.number},
+                </if>
+                <if test="sd.notes != null and sd.notes!= '' ">
+                    notes = #{sd.notes},
+                </if>
+            </set>
+            where id = #{sd.id}
+        </foreach>
+    </update>
+    <!-- 批量删除开单细节-->
+    <select id="delete">
+        delete from bill_detail where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+</mapper>

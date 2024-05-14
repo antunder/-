@@ -11,7 +11,10 @@ import java.util.List;
 @Mapper
 public interface SlipMapper {
     //查询
-    List<Slip> list(Short kind, Short state, Integer storeId,Integer custId,LocalDate begin, LocalDate end);
+    //采购单
+    List<Slip> listBuy( Short state, Integer storeId,Integer custId,LocalDate begin, LocalDate end);
+    //销售单
+    List<Slip> listSale(Short kind, Short state, Integer storeId,Integer custId,LocalDate begin, LocalDate end);
     //新增开单
     void insert(Slip slip);
     //修改开单信息

@@ -37,8 +37,13 @@ public interface SlipDetailService {
      */
     void delete(List<Integer> ids);
     /**
-     * 批量删除操作
+     * 退货操作
      * @param slipId 开单id
      */
     void reject(Integer slipId);
+    /**
+     * 出库操作
+     * @param slipId 开单id
+     */
+    void out(Integer slipId);
 }

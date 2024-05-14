@@ -19,15 +19,28 @@ public class SlipController {
     @Autowired
     private SlipService slipService;
     //条件分页查询
-    @GetMapping
-    public Result page(@RequestParam(defaultValue = "1") Integer page,
-                       @RequestParam(defaultValue = "10") Integer pageSize, Short kind, Short state,Integer storeId,Integer custId,
+    //采购单
+    @GetMapping("/buy")
+    public Result buyPage(@RequestParam(defaultValue = "1") Integer page,
+                       @RequestParam(defaultValue = "10") Integer pageSize, Short state,Integer storeId,Integer custId,
                        @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
                        @DateTimeFormat(pattern = "yyyy-MM-dd")LocalDate end){
         //记录日志
+        log.info("分页查询，参数：{}，{},{},{},{},{},{}",page,pageSize,state,storeId,custId,begin,end);
+        //调用业务层分页查询功能
+        PageBean pageBean = slipService.pageBuy(page,pageSize,state,storeId,custId,begin,end);
+        //响应
+        return Result.success(pageBean);
+    }
+    @GetMapping("/sale")
+    public Result salePage(@RequestParam(defaultValue = "1") Integer page,
+                          @RequestParam(defaultValue = "10") Integer pageSize, Short kind, Short state,Integer storeId,Integer custId,
+                          @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
+                          @DateTimeFormat(pattern = "yyyy-MM-dd")LocalDate end){
+        //记录日志
         log.info("分页查询，参数：{}，{},{},{},{},{},{},{}",page,pageSize,kind,state,storeId,custId,begin,end);
         //调用业务层分页查询功能
-        PageBean pageBean = slipService.page(page,pageSize,kind,state,storeId,custId,begin,end);
+        PageBean pageBean = slipService.pageSale(page,pageSize,kind,state,storeId,custId,begin,end);
         //响应
         return Result.success(pageBean);
     }

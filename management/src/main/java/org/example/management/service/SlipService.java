@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface SlipService {
     /**
-     * 条件分页查询
+     * 条件分页查询销售单
      * @param page     页码
      * @param pageSize 每页展示记录数
      * @param kind      开单类别
@@ -19,7 +19,19 @@ public interface SlipService {
      * @param end          结束时间
      * @return
      */
-    PageBean page(Integer page, Integer pageSize, Short kind, Short state, Integer storeId, Integer custId, LocalDate begin,LocalDate end);
+    PageBean pageSale(Integer page, Integer pageSize, Short kind, Short state, Integer storeId, Integer custId, LocalDate begin,LocalDate end);
+    /**
+     * 条件分页查询采购单
+     * @param page     页码
+     * @param pageSize 每页展示记录数
+     * @param state      开单状态
+     * @param storeId    仓库id
+     * @param custId     客户id
+     * @param begin       开始时间
+     * @param end          结束时间
+     * @return
+     */
+    PageBean pageBuy(Integer page, Integer pageSize, Short state, Integer storeId, Integer custId, LocalDate begin,LocalDate end);
     /**
      * 保存开单信息
      *

@@ -53,5 +53,10 @@ public class SlipDetailController {
         slipDetailService.reject(slipId);
         return Result.success();
     }
-
+    //出货
+    @PutMapping("/out/{slipId}")
+    public Result out(@PathVariable Integer slipId){
+        slipDetailService.out(slipId);
+        return Result.success();
+    }
 }

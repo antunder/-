@@ -2,6 +2,7 @@ package org.example.management.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import jdk.jshell.Snippet;
 import lombok.extern.slf4j.Slf4j;
 import org.example.management.mapper.SlipMapper;
 import org.example.management.pojo.Slip;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -20,17 +22,34 @@ public class SlipServiceImpl implements SlipService {
     private SlipMapper slipMapper;
 
     @Override
-    public PageBean page(Integer page, Integer pageSize, Short kind, Short state, Integer storeId, Integer custId,LocalDate begin,LocalDate end) {
+    public PageBean pageSale(Integer page, Integer pageSize, Short kind, Short state, Integer storeId, Integer custId,LocalDate begin,LocalDate end) {
         PageHelper.startPage(page,pageSize);
-        List<Slip> custList = slipMapper.list( kind,state,storeId,custId,begin,end);
-        Page<Slip> p = (Page<Slip>) custList;
+        List<Slip> slipList = slipMapper.listSale( kind,state,storeId,custId,begin,end);
+        Page<Slip> p = (Page<Slip>) slipList;
+        PageBean pageBean = new PageBean(p.getTotal(),p.getResult());
+        return pageBean;
+    }
+
+    @Override
+    public PageBean pageBuy(Integer page, Integer pageSize, Short state, Integer storeId, Integer custId, LocalDate begin, LocalDate end) {
+        PageHelper.startPage(page,pageSize);
+        List<Slip> slipList = slipMapper.listBuy( state,storeId,custId,begin,end);
+        Page<Slip> p = (Page<Slip>) slipList;
         PageBean pageBean = new PageBean(p.getTotal(),p.getResult());
         return pageBean;
     }
 
     @Override
     public List<Slip> list(Short kind, Short state, Integer storeId, Integer custId, LocalDate begin, LocalDate end) {
-        return slipMapper.list( kind,state,storeId,custId,begin,end);
+        List<Slip> all = slipMapper.listSale(kind,state,storeId,custId,begin,end);
+        if(kind==null){
+            List<Slip> others = slipMapper.listBuy(state,storeId,custId,begin,end);
+            for (Slip slip :others){
+                all.add(slip);
+            }
+        }
+
+        return all;
     }
 
     @Override

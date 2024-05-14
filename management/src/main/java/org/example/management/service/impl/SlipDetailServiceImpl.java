@@ -39,7 +39,7 @@ public class SlipDetailServiceImpl implements SlipDetailService {
         List<SlipDetail> ori = slipDetailMapper.list(slipId,null);
         List<SlipDetail> deleteList = new ArrayList<>(ori);
         List<Integer> deleteIds = new ArrayList<>();
-        if(slipDetails == null || slipDetails.isEmpty()){
+        if(slipDetails == null && slipDetails.isEmpty()){
             if(deleteList != null && !deleteList.isEmpty()){
                 for(SlipDetail sp : deleteList){
                     deleteIds.add(sp.getId());
@@ -103,6 +103,20 @@ public class SlipDetailServiceImpl implements SlipDetailService {
             Good good = goodMapper.findById(goodId);
             ori = good.getStorage();
             now = ori+sp.getNumber();
+            good.setStorage(now);
+            goodMapper.update(good);
+        }
+    }
+
+    @Override
+    public void out(Integer slipId) {
+        List<SlipDetail> slipDetails = slipDetailMapper.list(slipId,null);
+        Integer ori,now;
+        for(SlipDetail sp : slipDetails){
+            Integer goodId = sp.getGoodId();
+            Good good = goodMapper.findById(goodId);
+            ori = good.getStorage();
+            now = ori-sp.getNumber();
             good.setStorage(now);
             goodMapper.update(good);
         }
